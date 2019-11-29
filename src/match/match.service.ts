@@ -17,6 +17,8 @@ import { ITFTMatchModel, ISummonerModel, StaticTftItemsDTO, QueueDTO, GetSummone
 import { SummonersService } from '../summoners/summoners.service'
 import { SummonerServiceInsertMatch } from '../enums/summoners.enum'
 import { ModelsName } from 'twisted-models/dist/enum/collections.enum'
+import { StatsService } from '../stats/stats.service'
+import { GetProfileTftStats } from '../models/stats/summoner.dto'
 
 @Injectable()
 export class MatchService {
@@ -29,6 +31,7 @@ export class MatchService {
     private readonly config: ConfigService,
     private readonly summonerService: SummonersService,
     private readonly staticService: StaticDataService,
+    private readonly statsService: StatsService,
     private readonly riot: RiotApiService
   ) {}
 
@@ -54,9 +57,9 @@ export class MatchService {
 
   private async createMatch (puuid: string, match_id: string, region: Regions) {
     // Exists
-    const exists = await this.repository.findOne({ match_id, region })
+    const exists = await this.repository.exists({ match_id, region })
     if (exists) {
-      return exists
+      // return []
     }
     const parseRegion = regionToTftRegions(region)
     const match = await this.getMatch(match_id, parseRegion)
@@ -76,7 +79,7 @@ export class MatchService {
     const options = {
       upsert: true
     }
-    const instance = await this.repository.updateOne(condition, model, options)
+    await this.repository.updateOne(condition, model, options)
     // Push game into users
     for (const { _id } of users) {
       await this.summonerService.insertMatch(
@@ -85,7 +88,7 @@ export class MatchService {
         SummonerServiceInsertMatch.TFT
       )
     }
-    return instance
+    return users
   }
 
   @Cache({
@@ -98,17 +101,41 @@ export class MatchService {
     return matchIds
   }
 
+  private async summonerStats (summoners: string[], region: Regions) {
+    await Promise.all(summoners.map((summoner) => {
+      const query: GetSummonerQueryDTO = {
+        summonerName: '',
+        summonerPUUID: summoner,
+        region
+      }
+      return this.statsService.updateSummoner(query)
+    }))
+  }
+
+  private mapUsers (previous: string[], current: ISummonerModel[]) {
+    for (const summoner of current) {
+      const id = summoner.puuid
+      if (previous.indexOf(id) === -1) {
+        previous.push(id)
+      }
+    }
+    return previous
+  }
+
   // Public methods
-  async updateSummoner (params: GetSummonerQueryDTO): Promise<UpdateSummonerTFTMatchDTO> {
+  async updateStats (params: GetSummonerQueryDTO): Promise<UpdateSummonerTFTMatchDTO> {
     const parseRegion = regionToTftRegions(params.region)
     // Summoner details
     const { puuid } = await this.summonerService.get(params.summonerName, params.region)
     // Create matches
-    await Promise.map(
+    const users = await Promise.map(
       this.getMatchListing(puuid, parseRegion),
       match => this.createMatch(puuid, match, params.region),
       { concurrency: this.concurrency }
     )
+      .reduce(this.mapUsers, [])
+    // Update summoners stats
+    this.summonerStats(users, params.region)
     // Response
     return { msg: 'OK' }
   }
@@ -145,6 +172,10 @@ export class MatchService {
       }
     }
     return baseObjectResponse
+  }
+
+  async getSummonerStats (params: GetProfileTftStats) {
+    return this.statsService.get(params)
   }
 
   async total (): Promise<TotalTFTMatchesDTO> {

@@ -5,6 +5,7 @@ import { MatchController } from './match.controller'
 import { StaticDataModule } from '../static-data/static-data.module'
 import { TftMatchModel } from 'twisted-models'
 import { SummonersModule } from '../summoners/summoners.module'
+import { StatsModule } from '../stats/stats.module'
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { SummonersModule } from '../summoners/summoners.module'
       TftMatchModel
     ]),
     StaticDataModule,
-    SummonersModule
+    SummonersModule,
+    StatsModule
   ],
   providers: [MatchService],
   controllers: [MatchController]

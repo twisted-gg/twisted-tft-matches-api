@@ -7,6 +7,7 @@ import { OriginMiddleware } from 'twisted-common'
 import { StaticDataModule } from './static-data/static-data.module'
 import { SummonersModule } from './summoners/summoners.module'
 import { MatchModule } from './match/match.module'
+import { StatsModule } from './stats/stats.module'
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { MatchModule } from './match/match.module'
     RiotApiModule,
     MatchModule,
     StaticDataModule,
-    SummonersModule
+    SummonersModule,
+    StatsModule
   ],
   providers: [CacheService]
 })

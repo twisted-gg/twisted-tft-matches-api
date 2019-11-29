@@ -6,6 +6,7 @@ import { UpdateSummonerTFTMatchDTO } from '../models/match/dto/update-summoner.t
 import { TotalTFTMatchesDTO } from '../models/match/dto/total.tft-match.dto'
 import { GetSummonerQueryDTO } from 'twisted-common'
 import { TftMatchModelDTO } from 'twisted-models'
+import { GetProfileTftStats } from '../models/stats/summoner.dto'
 
 @Controller()
 export class MatchController {
@@ -20,7 +21,7 @@ export class MatchController {
   })
   @ApiUseTags('Update')
   async update (@Query() params: GetSummonerQueryDTO) {
-    return this.service.updateSummoner(params)
+    return this.service.updateStats(params)
   }
 
   @Get('summoner')
@@ -31,6 +32,16 @@ export class MatchController {
   @ApiUseTags('Getters')
   async getBySummoner (@Query() params: QueryTftMatches) {
     return this.service.getBySummoner(params)
+  }
+
+  @Get('summoner/stats')
+  @ApiOkResponse({ type: [TftMatchModelDTO] })
+  @ApiOperation({
+    title: 'Get summoner matcehs'
+  })
+  @ApiUseTags('Getters')
+  async getSummonerStats (@Query() params: GetProfileTftStats) {
+    return this.service.getSummonerStats(params)
   }
 
   @Get('total')
