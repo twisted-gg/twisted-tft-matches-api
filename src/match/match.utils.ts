@@ -110,9 +110,12 @@ export function getSearchParams (params: QueryTftMatches, id: string) {
   // Define
   const skip = params.limit * params.page
   const sort = [[TftMatchEnum.SORT_BY, TftMatchEnum.SORT_BY_ORDER]]
-  const condition = { participantsIds: id }
+  const condition: { participantsIds, queue? } = { participantsIds: id }
   const requestLimit = skip + params.limit
-
+  if (params.queue) {
+    const key = `queue.queueId`
+    condition[key] = params.queue
+  }
   return {
     skip,
     sort,
