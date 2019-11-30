@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { LolApi, TftApi } from 'twisted'
+import { LolApi, TftApi } from '@twisted.gg/common/dist/wrapper'
 import { ConfigService } from '../config/config.service'
 
 @Injectable()

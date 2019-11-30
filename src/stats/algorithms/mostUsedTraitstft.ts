@@ -1,6 +1,6 @@
 import { orderBy } from 'lodash'
 import { findSummoner } from './findSummoner.tft'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 import { TftMatchEnum } from '../../enums/app.enum'
 
 export function mostUsedTraits (puuid: string, matches: Partial<ITFTMatchModel>[]) {

@@ -1,6 +1,6 @@
 import { findSummoner } from '.'
 import { sortBy } from 'lodash'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 import { TftMatchEnum } from '../../enums/app.enum'
 
 export function mostUsedUnits (puuid: string, matches: Partial<ITFTMatchModel>[]) {

@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { MatchService } from './match.service'
 import { ConfigModule } from '../config/config.module'
-import { SummonerService } from '../summoner/summoner.service'
-import { ProfileTftStatsService } from '../profile-stats/profile-tft-stats.service'
-import { SummonerLeaguesService } from '../summoner-leagues/summoner-leagues.service'
-import { DatabaseTestProviders } from '../database/database.providers'
 import { RiotApiService } from '../riot-api/riot-api.service'
 import { StaticDataService } from '../static-data/static-data.service'
 import { stub, restore } from 'sinon'
-import { Regions } from 'twisted/dist/constants'
+import { Regions } from '@twisted.gg/common/dist/wrapper/constants'
+import { DatabaseTestProviders } from '@twisted.gg/models'
+import { SummonersService } from '../summoners/summoners.service'
+import { StatsService } from '../stats/stats.service'
 
 describe('TftMatchService', () => {
   let service: any & MatchService
@@ -20,11 +19,10 @@ describe('TftMatchService', () => {
       ],
       providers: [
         ...DatabaseTestProviders,
+        StatsService,
         StaticDataService,
         RiotApiService,
-        ProfileTftStatsService,
-        SummonerLeaguesService,
-        SummonerService,
+        SummonersService,
         MatchService
       ]
     }).compile()
@@ -96,7 +94,7 @@ describe('TftMatchService', () => {
         stub(service, 'createMatch')
           .callsFake((_, match) => Promise.resolve({ match }))
 
-        const response = await service.updateSummoner({ region: Regions.AMERICA_NORTH })
+        const response = await service.updateStats({ region: Regions.AMERICA_NORTH })
         expect(response).toEqual({ msg: 'OK' })
       })
     })

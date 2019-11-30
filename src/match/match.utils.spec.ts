@@ -1,5 +1,5 @@
 import * as utils from './match.utils'
-import { Regions } from 'twisted/dist/constants'
+import { Regions } from '@twisted.gg/common/dist/wrapper/constants'
 import { InternalServerErrorException } from '@nestjs/common'
 
 describe('Tft match utils', () => {

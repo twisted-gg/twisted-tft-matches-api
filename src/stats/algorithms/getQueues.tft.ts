@@ -1,16 +1,14 @@
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
+import { uniq } from 'lodash'
 
 export function getQueues (matches: Partial<ITFTMatchModel>[]) {
-  return matches.reduce<number[]>((prev, curr) => {
+  const queues = matches.reduce<number[]>((prev, curr) => {
     if (!curr.queue || typeof curr.queue.queueId !== 'number') {
       return prev
     }
     const name = curr.queue.queueId
-    const exists = !!prev.find(cName => cName === name)
-    if (exists) {
-      return prev
-    }
     prev.push(name)
     return prev
   }, [])
+  return uniq(queues)
 }

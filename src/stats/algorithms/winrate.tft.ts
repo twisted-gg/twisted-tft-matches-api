@@ -1,5 +1,5 @@
 import { findSummoner, isWin } from '.'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 
 export function winrate (puuid: string, matches: Partial<ITFTMatchModel>[]) {
   const wins = matches.filter((m) => {

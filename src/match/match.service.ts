@@ -2,7 +2,7 @@ import { Injectable, BadGatewayException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { Promise } from 'bluebird'
-import { Regions, regionToTftRegions, TftRegions } from 'twisted/dist/constants'
+import { Regions, regionToTftRegions, TftRegions } from '@twisted.gg/common/dist/wrapper/constants'
 import { RiotApiService } from '../riot-api/riot-api.service'
 import * as tftMatchUtils from './match.utils'
 import * as _ from 'lodash'
@@ -13,10 +13,10 @@ import { Cache } from '../cache/cache.decorator'
 import { CacheTimes } from '../enums/cache.enum'
 import { UpdateSummonerTFTMatchDTO } from '../models/match/dto/update-summoner.tft-match.dto'
 import { TotalTFTMatchesDTO } from '../models/match/dto/total.tft-match.dto'
-import { ITFTMatchModel, ISummonerModel, StaticTftItemsDTO, QueueDTO, GetSummonerQueryDTO } from 'twisted-models'
+import { ITFTMatchModel, ISummonerModel, StaticTftItemsDTO, QueueDTO, GetSummonerQueryDTO } from '@twisted.gg/models'
 import { SummonersService } from '../summoners/summoners.service'
 import { SummonerServiceInsertMatch } from '../enums/summoners.enum'
-import { ModelsName } from 'twisted-models/dist/enum/collections.enum'
+import { ModelsName } from '@twisted.gg/models/dist/enum/collections.enum'
 import { StatsService } from '../stats/stats.service'
 import { GetProfileTftStats } from '../models/stats/summoner.dto'
 
@@ -113,6 +113,7 @@ export class MatchService {
   }
 
   private mapUsers (previous: string[], current: ISummonerModel[]) {
+    current = _.castArray(current)
     for (const summoner of current) {
       const id = summoner.puuid
       if (previous.indexOf(id) === -1) {

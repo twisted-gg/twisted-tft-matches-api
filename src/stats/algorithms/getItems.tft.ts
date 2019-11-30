@@ -1,6 +1,6 @@
 import { findSummoner } from '.'
 import * as _ from 'lodash'
-import { IStaticTftItemsModel, ITFTMatchModel } from 'twisted-models'
+import { IStaticTftItemsModel, ITFTMatchModel } from '@twisted.gg/models'
 
 export function getItems (puuid: string, matches: Partial<ITFTMatchModel>[]) {
   const response: IStaticTftItemsModel[] = []

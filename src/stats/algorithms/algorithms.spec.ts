@@ -233,6 +233,23 @@ describe('Tft algorithms', () => {
       expect(queues).toEqual([0, 1])
     })
 
+    it('should return list of queues with duplicates', () => {
+      const matches = [
+        {
+          queue: {
+            queueId: 0
+          }
+        },
+        {
+          queue: {
+            queueId: 0
+          }
+        }
+      ]
+      const queues = getQueues(matches)
+      expect(queues).toEqual([0])
+    })
+
     it('should return list of queues when someone of them hasn\'t queue field', () => {
       const matches = [
         {
@@ -458,6 +475,13 @@ describe('Tft algorithms', () => {
       const result = keyAverage(puuid, matches, 'gold_left')
       const sumExpected = 4
       expect(result).toEqual(sumExpected / matches.length)
+    })
+
+    it('should return 0 when matches is length is 0', () => {
+      const matches = []
+      const result = keyAverage(puuid, matches, 'gold_left')
+      const sumExpected = 0
+      expect(result).toEqual(sumExpected)
     })
 
     it('should return 0 when the key doesn\'t exists', () => {

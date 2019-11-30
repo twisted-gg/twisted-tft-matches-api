@@ -1,5 +1,5 @@
 import { findSummoner } from '.'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 
 export function getTraits (puuid: string, matches: Partial<ITFTMatchModel>[]) {
   return matches.reduce<string[]>((prev, curr) => {

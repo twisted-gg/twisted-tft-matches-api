@@ -3,7 +3,7 @@ import { MatchService } from './match.service'
 import { MongooseModule } from '@nestjs/mongoose'
 import { MatchController } from './match.controller'
 import { StaticDataModule } from '../static-data/static-data.module'
-import { TftMatchModel } from 'twisted-models'
+import { TftMatchModel } from '@twisted.gg/models'
 import { SummonersModule } from '../summoners/summoners.module'
 import { StatsModule } from '../stats/stats.module'
 

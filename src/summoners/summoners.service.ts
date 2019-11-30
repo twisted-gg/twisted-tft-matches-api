@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '../config/config.service'
 import * as rp from 'request-promise'
 import * as requestUtils from '../requests/requests.utils'
-import { Regions } from 'twisted/dist/constants'
-import { GetSummonerLeaguesDTO } from 'twisted-models'
+import { Regions } from '@twisted.gg/common/dist/wrapper/constants'
+import { GetSummonerLeaguesDTO } from '@twisted.gg/models'
 
 @Injectable()
 export class SummonersService {

@@ -1,4 +1,4 @@
-import { useValue } from './database.providers'
+import { useValue } from "twisted-models"
 
 describe('Database providers', () => {
   it('should return promise repository method mocks', () => {

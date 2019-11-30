@@ -1,5 +1,5 @@
 import { findSummoner } from '.'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 
 export function playersEliminated (puuid: string, matches: Partial<ITFTMatchModel>[]) {
   let playersEliminated = 0

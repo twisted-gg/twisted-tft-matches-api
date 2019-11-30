@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 import * as algorithms from './algorithms'
 import { GetProfileTftStats } from '../models/stats/summoner.dto'
 enum TFTMatchKeys {

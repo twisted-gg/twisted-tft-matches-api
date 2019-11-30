@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger'
 import { IsInt, Max, Min, IsNotEmpty } from 'class-validator'
 import { Type } from 'class-transformer'
-import { typeNumber, GetSummonerQueryDTO } from 'twisted-models'
+import { typeNumber, GetSummonerQueryDTO } from '@twisted.gg/models'
 import { LimitsEnum } from '../../../enums/app.enum'
 
 export class QueryTftMatches extends GetSummonerQueryDTO {

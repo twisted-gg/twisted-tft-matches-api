@@ -1,9 +1,9 @@
-import { MatchTFTDTO } from 'twisted/dist/dto/Match/Tft/MatchTFT.dto'
-import { Regions } from 'twisted/dist/constants'
+import { Regions } from '@twisted.gg/common/dist/wrapper/constants'
 import { InternalServerErrorException } from '@nestjs/common'
 import { QueryTftMatches } from '../models/match/dto/query.tft-match.dto'
 import { TftMatchEnum } from '../enums/app.enum'
-import { ISummonerModel, TftMatchParticipantsModel, ITFTMatchModel } from 'twisted-models'
+import { MatchTFTDTO } from '@twisted.gg/common/dist/wrapper/dto'
+import { ISummonerModel, TftMatchParticipantsModel, ITFTMatchModel } from '@twisted.gg/models'
 
 function timestampToDate (value: number): Date {
   return new Date(value)

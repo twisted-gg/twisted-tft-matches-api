@@ -1,5 +1,5 @@
 import { findSummoner } from '.'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 
 export function percentagePerPlacement (puuid: string, matches: Partial<ITFTMatchModel>[]) {
   const values: { placement: number, total: number }[] = []

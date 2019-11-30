@@ -1,5 +1,5 @@
 import { findSummoner } from '.'
-import { ITFTMatchModel } from 'twisted-models'
+import { ITFTMatchModel } from '@twisted.gg/models'
 
 export function keyAverage (puuid: string, matches: Partial<ITFTMatchModel>[], key: string) {
   let total = 0

@@ -4,8 +4,8 @@ import { ApiUseTags, ApiOkResponse, ApiOperation } from '@nestjs/swagger'
 import { QueryTftMatches } from '../models/match/dto/query.tft-match.dto'
 import { UpdateSummonerTFTMatchDTO } from '../models/match/dto/update-summoner.tft-match.dto'
 import { TotalTFTMatchesDTO } from '../models/match/dto/total.tft-match.dto'
-import { GetSummonerQueryDTO } from 'twisted-common'
-import { TftMatchModelDTO } from 'twisted-models'
+import { GetSummonerQueryDTO } from '@twisted.gg/common'
+import { TftMatchModelDTO } from '@twisted.gg/models'
 import { GetProfileTftStats } from '../models/stats/summoner.dto'
 
 @Controller()
