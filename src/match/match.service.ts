@@ -1,4 +1,4 @@
-import { Injectable, BadGatewayException } from '@nestjs/common'
+import { Injectable, BadGatewayException, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { Promise } from 'bluebird'
@@ -166,10 +166,10 @@ export class MatchService {
         .limit(params.limit)
         .skip(skip)
         .sort(sort)
-
+      const dataParsed = tftMatchUtils.matchesBySummoner(_id, data)
       return {
         ...baseObjectResponse,
-        data
+        data: dataParsed
       }
     }
     return baseObjectResponse
@@ -186,5 +186,13 @@ export class MatchService {
       count: matches.length,
       size
     }
+  }
+
+  async get (_id: string) {
+    const match = await this.repository.findOne({ _id })
+    if (!match) {
+      throw new NotFoundException()
+    }
+    return match
   }
 }

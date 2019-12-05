@@ -3,6 +3,7 @@ import { InternalServerErrorException } from '@nestjs/common'
 import { QueryTftMatches } from '../models/match/dto/query.tft-match.dto'
 import { TftMatchEnum } from '../enums/app.enum'
 import { MatchTFTDTO } from '@twisted.gg/common/dist/wrapper/dto'
+import * as _ from 'lodash'
 import { ISummonerModel, TftMatchParticipantsModel, ITFTMatchModel } from '@twisted.gg/models'
 
 function timestampToDate (value: number): Date {
@@ -122,4 +123,28 @@ export function getSearchParams (params: QueryTftMatches, id: string) {
     condition,
     requestLimit
   }
+}
+
+export function matchesBySummoner (_id: string, matches: ITFTMatchModel[]) {
+  const parsedMatches: any[] = []
+  for (const match of matches) {
+    const findSummoner = (match
+      .participants
+      .find(p => p.summoner?._id.toString() === _id) as TftMatchParticipantsModel)
+      ?.toObject() as TftMatchParticipantsModel
+    const summoner = {
+      ...findSummoner,
+      summoner: undefined
+    }
+    const obj = {
+      _id: match._id,
+      datetime: match.game_datetime,
+      version: match.game_version,
+      length: match.game_length,
+      queue: match.queue,
+      summoner
+    }
+    parsedMatches.push(obj)
+  }
+  return parsedMatches
 }
