@@ -21,7 +21,7 @@ export enum TftMatchStatsEnum {
 }
 
 export enum LimitsEnum {
-  MATCH_LIMIT_MAX = 10,
+  MATCH_LIMIT_MAX = 30,
   MATCH_LIMIT_MIN = 0,
   MATCH_PAGE_MIN = 0,
   MIN_MATCHES_TO_STATS = 10
