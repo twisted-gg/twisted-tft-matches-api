@@ -15,7 +15,6 @@ import { UpdateSummonerTFTMatchDTO } from '../models/match/dto/update-summoner.t
 import { TotalTFTMatchesDTO } from '../models/match/dto/total.tft-match.dto'
 import { ITFTMatchModel, ISummonerModel, StaticTftItemsDTO, QueueDTO, GetSummonerQueryDTO } from '@twisted.gg/models'
 import { SummonersService } from '../summoners/summoners.service'
-import { SummonerServiceInsertMatch } from '../enums/summoners.enum'
 import { ModelsName } from '@twisted.gg/models/dist/enum/collections.enum'
 import { StatsService } from '../stats/stats.service'
 import { GetProfileTftStats } from '../models/stats/summoner.dto'
@@ -80,14 +79,7 @@ export class MatchService {
       upsert: true
     }
     await this.repository.updateOne(condition, model, options)
-    // Push game into users
-    for (const { _id } of users) {
-      await this.summonerService.insertMatch(
-        _id,
-        model.match_id,
-        SummonerServiceInsertMatch.TFT
-      )
-    }
+
     return users
   }
 

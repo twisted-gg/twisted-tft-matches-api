@@ -24,17 +24,4 @@ export class SummonersService {
     }
     return requestUtils.request(options, this.uri)
   }
-
-  async insertMatch (summoner_id: string, match_id: string, type: string) {
-    const options = {
-      uri: 'match',
-      method: 'PATCH',
-      qs: {
-        summoner_id,
-        match_id,
-        type
-      }
-    }
-    return requestUtils.request(options, this.uri)
-  }
 }
