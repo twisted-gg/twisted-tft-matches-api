@@ -33,7 +33,7 @@
     "@twisted.gg/models": "^1.0.4",
     "bluebird": "^3.7.1",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.10.2",
+    "class-validator": "^0.14.0",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.7",
     "ms": "^2.1.2",
